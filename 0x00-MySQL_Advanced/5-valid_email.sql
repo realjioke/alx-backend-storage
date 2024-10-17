@@ -1,14 +1,13 @@
-ql email using the database itself
-DROP TRIGGER IF EXISTS check_email;
-DELIMITER ||
-CREATE TRIGGER check_email
-BEFORE UPDATE ON users
-FOR EACH ROW
+ctive: 1691578679906@@127.0.0.1@5432@hbtn_0d_tvshows
+
+DELIMITER $
+
+CREATE TRIGGER valid_email_trigger BEFORE UPDATE ON users 
+FOR EACH ROW 
 BEGIN
-    IF OLD.email != NEW.email THEN
+    IF NEW.email <> OLD.email THEN
         SET NEW.valid_email = 0;
-    ELSE
-        SET NEW.valid_email = NEW.valid_email;
     END IF;
-END ||
+END$
+
 DELIMITER ;
